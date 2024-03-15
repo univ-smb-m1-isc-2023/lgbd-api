@@ -26,7 +26,7 @@ jobs:
       #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t chuck-facts .
+        run: docker build -t lgbd-api .
 
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
