@@ -2,7 +2,12 @@ package fr.univusmb.lgbd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class LgbdApplication {
@@ -11,21 +16,18 @@ public class LgbdApplication {
 		SpringApplication.run(LgbdApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello World!";
-	}
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
 
-	@GetMapping5("/bdd")
-	public String bdd() {
-		try{
-			spring.datasource.url='jdbc:mysql://localhost:5432/bd_lgbd'
-			spring.datasource.username='lgbd_root'
-			spring.datasource.password='root_lgbd'
-			return "Connexion à la base de données réussie !";
-		}catch(Exception e){
-			return "Connexion à la base de données échouée !";
-		}
-	}
+			System.out.println("Let's inspect the beans provided by Spring Boot:");
 
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+
+		};
+	}
 }
