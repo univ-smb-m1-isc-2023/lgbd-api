@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.sql.DataSource;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080","https://lgbd.oups.net"})
+@CrossOrigin(origins = {"*"})
 public class HelloController {
     @Autowired
     private DataSource dataSource;
