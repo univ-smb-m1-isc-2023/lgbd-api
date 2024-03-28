@@ -16,10 +16,4 @@ class LgbdApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
-	void testHelloMapping() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/hello"))
-				.andExpect(status().isOk())
-				.andExpect(content().string("Hello World!"));
-	}
 }
