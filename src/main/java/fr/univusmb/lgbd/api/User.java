@@ -1,4 +1,4 @@
-package fr.univusmb.lgbd;
+package fr.univusmb.lgbd.api;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
