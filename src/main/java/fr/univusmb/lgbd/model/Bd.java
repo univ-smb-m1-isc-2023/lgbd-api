@@ -17,7 +17,6 @@ public class Bd {
     private String titre;
 
     @ManyToOne
-    @Column(name = "auteur", nullable = false)
     private String auteur;
 
     @Column(name = "editeur", nullable = false)
