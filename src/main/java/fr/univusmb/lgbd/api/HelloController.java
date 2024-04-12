@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univusmb.lgbd.infrastructure.postegre.dao.PostegresUserDao;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -17,6 +19,9 @@ import javax.sql.DataSource;
 public class HelloController {
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private PostegresUserDao userDao;
 
     @GetMapping("/hello")
     public String hello() {
@@ -55,8 +60,6 @@ public class HelloController {
 
     @PostMapping("/addUser")
     public void addUser(@RequestBody User user) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "INSERT INTO users (nom, email, password) VALUES (?, ?)";
-        jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getPassword());
+        userDao.addUser(user.getName(), user.getEmail(), user.getPassword());
     }
 }
