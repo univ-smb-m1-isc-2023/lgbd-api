@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
+import fr.univusmb.lgbd.model.Auteur;
+import java.util.List;
 
 @Controller
 @RequestMapping("/auteur")
@@ -15,12 +18,19 @@ public class AuteurController {
     private PostgresAuteurDao auteurDao;
 
     @GetMapping("/all")
-    public String getAll() {
+    public ResponseEntity<List<Auteur>> get() {
+        return ResponseEntity.ok(auteurDao.getAll());
+    }
 
-        return auteurDao.getAll().toString();
+    @GetMapping("/")
+    public ResponseEntity<Auteur> get(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(auteurDao.get(id).get());
     }
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello World!";
+
+    @GetMapping("/")
+    public ResponseEntity<Void> create(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
+        auteurDao.save(new Auteur(nom, prenom));
+        return ResponseEntity.ok().build();
     }
+
 }

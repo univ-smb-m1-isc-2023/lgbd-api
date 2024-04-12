@@ -21,7 +21,6 @@ public class Auteur {
     private String prenom;
 
     @OneToMany(mappedBy = "bd")
-    @Column(name = "bd")
     private List<Bd> bd;
 
     public Auteur(Long id, String nom, String prenom) {
@@ -30,18 +29,27 @@ public class Auteur {
         this.prenom = prenom;
     }
 
-    /* Gestion Auteur */
+    public Auteur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+    
+
     public void addBd(Bd bd) {
         this.bd.add(bd);
     }
 
-    public void removeBd(Bd bd) {
-        this.bd.remove(bd);
-    }
 
-    /* *** */
+    
 
-    /* getter */
+    
+
+    
+
+    
+
+    
+    /* Getter */
 
     public Long getId() {
         return id;
