@@ -42,20 +42,17 @@ public class Bd {
 
     public Bd(Long isbn,
             String titre,
-            String auteur,
             String editeur,
             Integer annee) {
 
         this.isbn = isbn;
         this.titre = titre;
-        this.auteur = auteur;
         this.editeur = editeur;
         this.annee = annee;
     }
 
     public Bd(Long isbn,
             String titre,
-            String auteur,
             String editeur,
             Integer annee,
             String[] genre,
@@ -66,7 +63,6 @@ public class Bd {
 
         this.isbn = isbn;
         this.titre = titre;
-        this.auteur = auteur;
         this.editeur = editeur;
         this.annee = annee;
         this.genre = genre;
@@ -95,10 +91,6 @@ public class Bd {
     /* Gestion Bd */
     public void setTitre(String titre) {
         this.titre = titre;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
     }
 
     public void setEditeur(String editeur) {
@@ -140,9 +132,7 @@ public class Bd {
         return titre;
     }
 
-    public String getAuteur() {
-        return auteur;
-    }
+    
 
     public String getEditeur() {
         return editeur;
