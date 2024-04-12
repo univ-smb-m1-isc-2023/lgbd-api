@@ -39,7 +39,6 @@ public class Bd {
     private String[] image;
 
     @ManyToOne
-    @Column(name = "serie")
     private Long serie;
 
     public Bd(Long isbn,

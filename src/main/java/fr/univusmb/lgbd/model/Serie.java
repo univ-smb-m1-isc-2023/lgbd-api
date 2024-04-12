@@ -19,7 +19,6 @@ public class Serie {
     private String nom;
 
     @OneToMany(mappedBy = "bd")
-    @Column(name = "bd")
     private List<Bd> bd;
 
     public Serie(Long id, String nom) {
@@ -47,5 +46,5 @@ public class Serie {
         return nom;
     }
     /* *** */
-
+    
 }
