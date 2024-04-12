@@ -19,4 +19,8 @@ public class AuteurController {
 
         return auteurDao.getAll().toString();
     }
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World!";
+    }
 }
