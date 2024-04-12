@@ -1,6 +1,7 @@
 package fr.univusmb.lgbd.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +60,14 @@ public class HelloController {
     }
 
     @PostMapping("/addUser")
-    public void addUser(@RequestBody User user) {
-        userDao.addUser(user.getName(), user.getEmail(), user.getPassword());
+    public ResponseEntity<String> addUser(@RequestBody User user) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        String sql = "INSERT INTO users (identifiant, nom, email, password) VALUES (?, ?, ?, ?)";
+        try{
+            jdbcTemplate.update(sql, user.getId(), user.getName(), user.getEmail(), user.getPassword());
+            return ResponseEntity.ok("User added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error adding user");
+        }
     }
 }
