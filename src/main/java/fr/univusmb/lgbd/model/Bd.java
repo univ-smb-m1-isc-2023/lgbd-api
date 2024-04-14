@@ -60,7 +60,7 @@ public class Bd {
             String resume,
             Integer note,
             String[] image,
-            Long serie) {
+            Serie serie) {
 
         this.isbn = isbn;
         this.titre = titre;
@@ -118,7 +118,7 @@ public class Bd {
         this.image = image;
     }
 
-    public void setSerie(Long serie) {
+    public void setSerie(Serie serie) {
         this.serie = serie;
     }
 
