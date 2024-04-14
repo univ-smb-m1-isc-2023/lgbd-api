@@ -3,6 +3,7 @@ package fr.univusmb.lgbd.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class AuteurController {
         return ResponseEntity.ok(auteurDao.get(id).get());
     }
 
-    @GetMapping("/")
+    @PostMapping("/")
     public ResponseEntity<Void> create(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
         auteurDao.save(new Auteur(nom, prenom));
         return ResponseEntity.ok().build();
