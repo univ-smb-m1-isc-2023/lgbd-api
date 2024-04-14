@@ -39,8 +39,7 @@ public class Bd {
     private String[] image;
 
     @ManyToOne
-    @JoinColumn(name = "serieId")
-    private Long serie;
+    private Serie serie;
 
     public Bd(Long isbn,
             String titre,
