@@ -23,6 +23,10 @@ public class Auteur {
     @OneToMany(mappedBy = "isbn")
     private List<Bd> bd;
 
+    public Auteur() {
+        this(null, null, null);
+    }
+
     public Auteur(Long id, String nom, String prenom) {
         this.auteurId = id;
         this.nom = nom;
