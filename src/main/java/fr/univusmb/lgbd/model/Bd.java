@@ -18,8 +18,7 @@ public class Bd {
     private String titre;
 
     @ManyToOne
-    @JoinColumn(name = "auteurId")
-    private Long auteur;
+    private Auteur auteur;
 
     @Column(name = "editeur", nullable = false)
     private String editeur;
