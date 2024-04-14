@@ -3,6 +3,7 @@ package fr.univusmb.lgbd.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -17,7 +18,8 @@ public class Bd {
     private String titre;
 
     @ManyToOne
-    private String auteur;
+    @JoinColumn(name = "auteurId")
+    private Long auteur;
 
     @Column(name = "editeur", nullable = false)
     private String editeur;
@@ -38,6 +40,7 @@ public class Bd {
     private String[] image;
 
     @ManyToOne
+    @JoinColumn(name = "serieId")
     private Long serie;
 
     public Bd(Long isbn,
@@ -131,8 +134,6 @@ public class Bd {
     public String getTitre() {
         return titre;
     }
-
-    
 
     public String getEditeur() {
         return editeur;

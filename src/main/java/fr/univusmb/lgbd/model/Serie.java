@@ -13,7 +13,7 @@ public class Serie {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
-    private Long id;
+    private Long serieId;
 
     @Column(name = "nom", nullable = false)
     private String nom;
@@ -21,8 +21,8 @@ public class Serie {
     @OneToMany(mappedBy = "bd")
     private List<Bd> bd;
 
-    public Serie(Long id, String nom) {
-        this.id = id;
+    public Serie(Long serieId, String nom) {
+        this.serieId = serieId;
         this.nom = nom;
     }
 
@@ -39,12 +39,12 @@ public class Serie {
 
     /* getter */
     public Long getId() {
-        return id;
+        return serieId;
     }
 
     public String getNom() {
         return nom;
     }
     /* *** */
-    
+
 }

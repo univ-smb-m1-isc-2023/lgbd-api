@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Auteur {
 
     @Id
-    private Long id;
+    private Long auteurId;
 
     @Column(name = "nom", nullable = false)
     private String nom;
@@ -24,7 +24,7 @@ public class Auteur {
     private List<Bd> bd;
 
     public Auteur(Long id, String nom, String prenom) {
-        this.id = id;
+        this.auteurId = id;
         this.nom = nom;
         this.prenom = prenom;
     }
@@ -33,26 +33,15 @@ public class Auteur {
         this.nom = nom;
         this.prenom = prenom;
     }
-    
 
     public void addBd(Bd bd) {
         this.bd.add(bd);
     }
 
-
-    
-
-    
-
-    
-
-    
-
-    
     /* Getter */
 
     public Long getId() {
-        return id;
+        return auteurId;
     }
 
     public String getNom() {
