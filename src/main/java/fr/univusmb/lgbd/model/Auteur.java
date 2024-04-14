@@ -20,7 +20,7 @@ public class Auteur {
     @Column(name = "prenom", nullable = false)
     private String prenom;
 
-    @OneToMany(mappedBy = "bd")
+    @OneToMany(mappedBy = "isbn")
     private List<Bd> bd;
 
     public Auteur(Long id, String nom, String prenom) {

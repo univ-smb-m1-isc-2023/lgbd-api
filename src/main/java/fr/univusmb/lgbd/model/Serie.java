@@ -18,7 +18,7 @@ public class Serie {
     @Column(name = "nom", nullable = false)
     private String nom;
 
-    @OneToMany(mappedBy = "bd")
+    @OneToMany(mappedBy = "isbn")
     private List<Bd> bd;
 
     public Serie(Long serieId, String nom) {
