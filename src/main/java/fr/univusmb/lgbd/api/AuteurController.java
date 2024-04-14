@@ -23,12 +23,12 @@ public class AuteurController {
         return ResponseEntity.ok(auteurDao.getAll());
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Auteur> get(@RequestParam("id") Long id) {
         return ResponseEntity.ok(auteurDao.get(id).get());
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Void> create(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
         auteurDao.save(new Auteur(nom, prenom));
         return ResponseEntity.ok().build();
