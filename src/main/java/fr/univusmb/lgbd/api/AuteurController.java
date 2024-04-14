@@ -30,6 +30,7 @@ public class AuteurController {
 
     @PostMapping("")
     public ResponseEntity<Void> create(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
+        System.out.println("CREATE : nom : " + nom + " prenom : " + prenom);
         auteurDao.save(new Auteur(nom, prenom));
         return ResponseEntity.ok().build();
     }
