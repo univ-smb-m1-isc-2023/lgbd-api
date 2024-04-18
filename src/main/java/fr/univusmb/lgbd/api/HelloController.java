@@ -62,9 +62,9 @@ public class HelloController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<Void> addUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
-        System.out.println("CREATE : name : " + name + " email : " + email);
-        userDao.save(new User(name, email, password));
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
+        System.out.println("CREATE : name : " + user.getName() + " email : " + user.getEmail());
+        userDao.save(user);
         return ResponseEntity.ok().build();
     }
 }
