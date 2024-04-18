@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import fr.univusmb.lgbd.infrastructure.postgres.jpa.PostegresUserJPA;
@@ -16,10 +17,13 @@ public class PostgresUserDao implements Dao<User>{
     private PostegresUserJPA userJPA;
     private Long nextId = 1L;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public User save(User element){
         assert element.getId() == null;
-        User newUser = new User(nextId++, element.getName(), element.getEmail(), element.getPassword());
+        User newUser = new User(nextId++, element.getName(), element.getEmail(), bCryptPasswordEncoder.encode(element.getPassword()));
         return userJPA.save(newUser);
     }
 
@@ -33,9 +37,14 @@ public class PostgresUserDao implements Dao<User>{
         return userJPA.findAll();
     }
 
+    public Optional<User> findByEmail(String email) {
+        return userJPA.findByEmail(email);
+    }
+
     @Override
     public User update(User element) {
         assert element.getId() != null;
+        element.setPassword(bCryptPasswordEncoder.encode(element.getPassword()));
         return userJPA.save(element);
     }
 
