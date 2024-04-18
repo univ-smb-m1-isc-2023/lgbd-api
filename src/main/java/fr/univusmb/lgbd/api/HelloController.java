@@ -73,7 +73,7 @@ public class HelloController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/login")
+    @PostMapping("/checklogin")
     public ResponseEntity<User> login(@RequestBody User user){
         Optional<User> existingUser = userDao.findByEmail(user.getEmail());
         if(existingUser.isPresent() && bCryptPasswordEncoder.matches(user.getPassword(), existingUser.get().getPassword())){
