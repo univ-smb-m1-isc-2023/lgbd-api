@@ -2,12 +2,9 @@ package fr.univusmb.lgbd.infrastructure.postgres.dao;
 
 import java.util.List;
 import java.util.Optional;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import fr.univusmb.lgbd.infrastructure.postgres.jpa.PostegresUserJPA;
@@ -20,23 +17,13 @@ public class PostgresUserDao implements Dao<User>{
     private PostegresUserJPA userJPA;
     private Long nextId = 1L;
 
-    private String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
-        BigInteger number = new BigInteger(1, hash);
-        String hashedPswd = number.toString(16);
-
-        while(hashedPswd.length() < 32) {
-            hashedPswd = "0" + hashedPswd;
-        }
-
-        return hashedPswd;
-    }
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User save(User element){
         assert element.getId() == null;
-        User newUser = new User(nextId++, element.getName(), element.getEmail(), element.getPassword());
+        User newUser = new User(nextId++, element.getName(), element.getEmail(), passwordEncoder.encode(element.getPassword()));
         return userJPA.save(newUser);
     }
 
@@ -57,6 +44,7 @@ public class PostgresUserDao implements Dao<User>{
     @Override
     public User update(User element) {
         assert element.getId() != null;
+        element.setPassword(passwordEncoder.encode(element.getPassword()));
         return userJPA.save(element);
     }
 
