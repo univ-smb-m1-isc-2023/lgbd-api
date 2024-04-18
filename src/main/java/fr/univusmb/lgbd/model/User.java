@@ -1,4 +1,4 @@
-package fr.univusmb.lgbd.api;
+package fr.univusmb.lgbd.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +26,13 @@ public class User {
     }
 
     public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Long id, String name, String email, String password) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;

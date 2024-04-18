@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univusmb.lgbd.infrastructure.postegre.dao.PostegresUserDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
+import fr.univusmb.lgbd.model.User;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class HelloController {
     private DataSource dataSource;
 
     @Autowired
-    private PostegresUserDao userDao;
+    private PostgresUserDao userDao;
 
     @GetMapping("/hello")
     public String hello() {
@@ -60,14 +62,9 @@ public class HelloController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "INSERT INTO users (identifiant, nom, email, password) VALUES (?, ?, ?, ?)";
-        try{
-            jdbcTemplate.update(sql, user.getId(), user.getName(), user.getEmail(), user.getPassword());
-            return ResponseEntity.ok("User added successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error adding user");
-        }
+    public ResponseEntity<Void> addUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
+        System.out.println("CREATE : name : " + name + " email : " + email);
+        userDao.save(new User(name, email, password));
+        return ResponseEntity.ok().build();
     }
 }
