@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
@@ -74,9 +75,9 @@ public class HelloController {
     }
 
     @PostMapping("/checklogin")
-    public ResponseEntity<User> login(@RequestBody User user){
-        Optional<User> existingUser = userDao.findByEmail(user.getEmail());
-        if(existingUser.isPresent() && passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())){
+    public ResponseEntity<User> login(@RequestParam String email, @RequestParam String password) {
+        Optional<User> existingUser = userDao.findByEmail(email);
+        if(existingUser.isPresent() && passwordEncoder.matches(password, existingUser.get().getPassword())){
             return ResponseEntity.ok(existingUser.get());   
         }else{
             return ResponseEntity.notFound().build();
