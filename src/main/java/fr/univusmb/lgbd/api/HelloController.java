@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
+import fr.univusmb.lgbd.model.LoginRequest;
 import fr.univusmb.lgbd.model.User;
 
 import java.util.List;
@@ -75,9 +76,9 @@ public class HelloController {
     }
 
     @PostMapping("/checklogin")
-    public ResponseEntity<User> login(@RequestParam String email, @RequestParam String password) {
-        Optional<User> existingUser = userDao.findByEmail(email);
-        if(existingUser.isPresent() && passwordEncoder.matches(password, existingUser.get().getPassword())){
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+        Optional<User> existingUser = userDao.findByEmail(loginRequest.getEmail());
+        if(existingUser.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), existingUser.get().getPassword())){
             return ResponseEntity.ok(existingUser.get());   
         }else{
             return ResponseEntity.notFound().build();
