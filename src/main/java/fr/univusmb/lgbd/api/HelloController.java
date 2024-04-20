@@ -3,11 +3,12 @@ package fr.univusmb.lgbd.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
@@ -15,7 +16,6 @@ import fr.univusmb.lgbd.model.User;
 
 import java.util.List;
 import java.util.Optional;
-import java.security.MessageDigest;
 
 import javax.sql.DataSource;
 
@@ -27,6 +27,9 @@ public class HelloController {
 
     @Autowired
     private PostgresUserDao userDao;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/hello")
     public String hello() {
@@ -73,7 +76,7 @@ public class HelloController {
     @PostMapping("/checklogin")
     public ResponseEntity<User> login(@RequestBody User user){
         Optional<User> existingUser = userDao.findByEmail(user.getEmail());
-        if(existingUser.isPresent() && existingUser.get().getPassword().equals(user.getPassword())){
+        if(existingUser.isPresent() && passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())){
             return ResponseEntity.ok(existingUser.get());   
         }else{
             return ResponseEntity.notFound().build();
