@@ -2,6 +2,7 @@ package fr.univusmb.lgbd.infrastructure.postgres.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,15 +16,25 @@ public class PostgresUserDao implements Dao<User>{
     
     @Autowired
     private PostegresUserJPA userJPA;
-    private Long nextId = 1L;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    private Random random = new Random();
+
+    private Long generateUniqueId(){
+        Long id = random.nextLong();
+        if(userJPA.findById(id).isPresent()){
+            return generateUniqueId();
+        }
+        return id;
+    }
+
     @Override
     public User save(User element){
         assert element.getId() == null;
-        User newUser = new User(nextId++, element.getName(), element.getEmail(), passwordEncoder.encode(element.getPassword()));
+        Long uniqueId = generateUniqueId();
+        User newUser = new User(uniqueId, element.getName(), element.getEmail(), passwordEncoder.encode(element.getPassword()));
         return userJPA.save(newUser);
     }
 
