@@ -6,11 +6,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
 import fr.univusmb.lgbd.model.LoginRequest;
@@ -55,17 +58,7 @@ public class HelloController {
 
     @GetMapping("/getUsers")
     public List<User> getUsers() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        String sql = "SELECT * FROM users";
-
-        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
-            User user = new User();
-            user.setId(rs.getLong("identifiant"));
-            user.setName(rs.getString("nom"));
-            user.setEmail(rs.getString("email"));
-            return user;
-        });
-        return users;
+        return userDao.getAll();
     }
 
     @PostMapping("/addUser")
@@ -80,6 +73,26 @@ public class HelloController {
         Optional<User> existingUser = userDao.findByEmail(loginRequest.getEmail());
         if(existingUser.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), existingUser.get().getPassword())){
             return ResponseEntity.ok(existingUser.get());   
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        User updatedUser = userDao.update(user);
+        if(updatedUser != null){
+            return ResponseEntity.ok(updatedUser);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<User> deleteUser(@RequestBody User user){
+        User deletedUser = userDao.delete(user);
+        if(deletedUser != null){
+            return ResponseEntity.ok(deletedUser);
         }else{
             return ResponseEntity.notFound().build();
         }
