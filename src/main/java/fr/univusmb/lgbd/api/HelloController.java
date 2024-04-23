@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,8 +89,10 @@ public class HelloController {
         }
     }
 
-    @DeleteMapping("/deleteUser")
-    public ResponseEntity<User> deleteUser(@RequestBody User user){
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id){
+        User user = new User();
+        user.setId(id);
         User deletedUser = userDao.delete(user);
         if(deletedUser != null){
             return ResponseEntity.ok(deletedUser);
