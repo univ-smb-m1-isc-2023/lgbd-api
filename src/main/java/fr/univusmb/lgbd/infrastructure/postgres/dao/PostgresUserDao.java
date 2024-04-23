@@ -55,24 +55,9 @@ public class PostgresUserDao implements Dao<User>{
     @Override
     public User update(User element) {
         assert element.getId() != null;
-        Optional<User> search = userJPA.findById(element.getId());
-        assert search.isPresent();
-        User updateUser = search.get();
-        updateUser.setName(element.getName());
-        updateUser.setEmail(element.getEmail());
+        element.setPassword(passwordEncoder.encode(element.getPassword()));
         return userJPA.save(element);
     }
-
-    public User updateUserPassword(User user) {
-        assert user.getId() != null;
-        Optional<User> search = userJPA.findById(user.getId());
-        assert search.isPresent();
-        User updateUser = search.get();
-        updateUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userJPA.save(updateUser);
-    }
-
-    
 
     @Override
     public User delete(User element) {
