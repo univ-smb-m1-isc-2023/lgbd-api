@@ -78,9 +78,19 @@ public class HelloController {
         }
     }
 
-    @PutMapping("/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody User user){
+    @PutMapping("/updateUserInfo")
+    public ResponseEntity<User> updateUserInfo(@RequestBody User user){
         User updatedUser = userDao.update(user);
+        if(updatedUser != null){
+            return ResponseEntity.ok(updatedUser);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/updateUserPassword")
+    public ResponseEntity<User> updateUserPassword(@RequestBody User user){
+        User updatedUser = userDao.updateUserPassword(user);
         if(updatedUser != null){
             return ResponseEntity.ok(updatedUser);
         }else{

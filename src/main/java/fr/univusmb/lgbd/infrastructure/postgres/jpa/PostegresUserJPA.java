@@ -9,4 +9,5 @@ import fr.univusmb.lgbd.model.User;
 public interface PostegresUserJPA extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
+    User updateUserPassword(User user);
 }
