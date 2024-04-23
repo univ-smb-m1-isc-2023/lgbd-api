@@ -1,6 +1,7 @@
 package fr.univusmb.lgbd.infrastructure.postgres.dao;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -55,8 +56,16 @@ public class PostgresUserDao implements Dao<User>{
     @Override
     public User update(User element) {
         assert element.getId() != null;
-        element.setPassword(passwordEncoder.encode(element.getPassword()));
-        return userJPA.save(element);
+        Optional<User> existingUserOpt = userJPA.findById(element.getId());
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+            existingUser.setName(element.getName());
+            existingUser.setEmail(element.getEmail());
+            existingUser.setPassword(passwordEncoder.encode(element.getPassword()));
+            return userJPA.save(existingUser);
+        } else {
+            throw new NoSuchElementException("User with id " + element.getId() + " not found");
+        }
     }
 
     @Override
