@@ -28,8 +28,8 @@ public class BdController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Bd> get(@RequestParam("id") Long id) {
-        Optional<Bd> search = bdDao.get(id);
+    public ResponseEntity<Bd> get(@RequestParam("isbn") Long isbn) {
+        Optional<Bd> search = bdDao.get(isbn);
         assert search.isPresent();
         Bd find = search.get();
         return ResponseEntity.ok(find);
