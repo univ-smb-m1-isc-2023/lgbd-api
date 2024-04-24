@@ -41,6 +41,14 @@ public class User {
         this.password = password;
     }
 
+    public User(Long id, String name, String email, String password, boolean admin) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+    }
+
     public String getName() {
         return name;
     }
@@ -57,6 +65,10 @@ public class User {
         return password;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -71,6 +83,10 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
 }

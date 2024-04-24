@@ -35,7 +35,7 @@ public class PostgresUserDao implements Dao<User>{
     public User save(User element){
         assert element.getId() == null;
         Long uniqueId = generateUniqueId();
-        User newUser = new User(uniqueId, element.getName(), element.getEmail(), passwordEncoder.encode(element.getPassword()));
+        User newUser = new User(uniqueId, element.getName(), element.getEmail(), passwordEncoder.encode(element.getPassword()), element.isAdmin());
         return userJPA.save(newUser);
     }
 
@@ -75,7 +75,7 @@ public class PostgresUserDao implements Dao<User>{
         assert search.isPresent();
 
         User deleteUser = search.get();
-        User copy = new User(deleteUser.getId(), deleteUser.getName(), deleteUser.getEmail(), deleteUser.getPassword());
+        User copy = new User(deleteUser.getId(), deleteUser.getName(), deleteUser.getEmail(), deleteUser.getPassword(), deleteUser.isAdmin());
 
         userJPA.deleteById(element.getId());
         return copy;
