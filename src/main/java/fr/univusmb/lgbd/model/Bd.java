@@ -73,6 +73,10 @@ public class Bd {
         this.serie = serie;
     }
 
+    public Bd() {
+
+    }
+
     /* Comparaison */
     public boolean equals(Object o) {
         if (o == this)
