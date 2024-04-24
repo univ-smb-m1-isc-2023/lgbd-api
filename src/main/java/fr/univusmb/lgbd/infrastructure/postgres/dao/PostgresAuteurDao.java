@@ -24,6 +24,7 @@ public class PostgresAuteurDao implements Dao<Auteur> {
         return auteurJPA.save(newAuteur);
     }
 
+
     @Override
     public Optional<Auteur> get(Long id) {
         return auteurJPA.findById(id);
@@ -33,6 +34,14 @@ public class PostgresAuteurDao implements Dao<Auteur> {
     public List<Auteur> getAll() {
         return auteurJPA.findAll();
     }
+    public Auteur getByNomPrenom(String nom, String prenom){
+        List<Auteur> auteurs = auteurJPA.findAll();
+        Optional<Auteur> res = auteurs.stream()
+                .filter(a -> a.getNom().equals(nom) && a.getPrenom().equals(prenom))
+                .findFirst();
+        return res.orElse(null);
+    }
+
 
     @Override
     public Auteur update(Auteur element) {

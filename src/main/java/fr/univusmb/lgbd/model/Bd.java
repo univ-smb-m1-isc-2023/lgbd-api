@@ -7,6 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.util.List;
+
 @Entity
 @Table(name = "bd")
 public class Bd {
@@ -27,7 +29,7 @@ public class Bd {
     private Integer annee;
 
     @Column(name = "genre")
-    private String[] genre;
+    private String genre;
 
     @Column(name = "resume")
     private String resume;
@@ -36,7 +38,7 @@ public class Bd {
     private Integer note;
 
     @Column(name = "image")
-    private String[] image;
+    private String image;
 
     @ManyToOne
     private Serie serie;
@@ -56,16 +58,18 @@ public class Bd {
             String titre,
             String editeur,
             Integer annee,
-            String[] genre,
+            String genre,
             String resume,
             Integer note,
-            String[] image,
+            Auteur auteur,
+            String image,
             Serie serie) {
 
         this.isbn = isbn;
         this.titre = titre;
         this.editeur = editeur;
         this.annee = annee;
+        this.auteur = auteur;
         this.genre = genre;
         this.resume = resume;
         this.note = note;
@@ -76,6 +80,8 @@ public class Bd {
     public Bd() {
 
     }
+
+
 
     /* Comparaison */
     public boolean equals(Object o) {
@@ -106,7 +112,7 @@ public class Bd {
         this.annee = annee;
     }
 
-    public void setGenre(String[] genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
@@ -118,7 +124,7 @@ public class Bd {
         this.note = note;
     }
 
-    public void setImage(String[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

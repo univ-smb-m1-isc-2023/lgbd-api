@@ -2,8 +2,10 @@ package fr.univusmb.lgbd.api;
 
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import fr.univusmb.lgbd.model.Auteur;
 import fr.univusmb.lgbd.model.Bd;
+import fr.univusmb.lgbd.model.Serie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,8 @@ public class BdController {
 
     @Autowired
     private PostgresBdDao bdDao;
-
+    private PostgresAuteurDao auteurDao;
+    private PostgresSerieDao serieDao;
     @GetMapping("/all")
     public ResponseEntity<List<Bd>> get() {
         return ResponseEntity.ok(bdDao.getAll());
@@ -34,10 +37,26 @@ public class BdController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn, @RequestParam("titre") String titre, @RequestParam("editeur") String editeur, @RequestParam("annee") Integer annee) {
+    public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn, @RequestParam("titre") String titre, @RequestParam("editeur") String editeur, @RequestParam("annee") Integer annee,
+        @RequestParam("resume") String resume,@RequestParam("auteurNom") String auteurNom, @RequestParam("auteurPrenom") String auteurPrenom, @RequestParam("seriName") String serieName
+    ) {
         System.out.println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
-        bdDao.save(new Bd(isbn, titre,editeur,annee));
+        assert editeur != null;
+        assert annee != null;
+        assert titre != null;
+        Auteur auteur = auteurDao.getByNomPrenom(auteurNom,auteurPrenom);
+        if (auteur == null)
+        {
+            auteur = new Auteur(auteurNom,auteurPrenom);
+            auteurDao.save(auteur);
+        }
+        Serie serie = serieDao.getByName(serieName);
+
+        Integer note = 0;
+        bdDao.save(new Bd(isbn, titre,editeur,annee,"",resume,note,auteur,"",serie));
+
         return ResponseEntity.ok().build();
     }
+
 }

@@ -38,6 +38,14 @@ public class PostgresSerieDao implements Dao<Serie>{
         return serieJPA.save(element);
     }
 
+    public Serie getByName(String nom){
+        List<Serie> series = serieJPA.findAll();
+        Optional<Serie> res = series.stream().filter(
+                a-> a.getNom().equals(nom)
+        ).findFirst();
+        return res.orElse(null);
+    }
+
     @Override
     public Serie delete(Serie element) {
         assert element.getId() != null;
