@@ -43,7 +43,7 @@ public class PostgresSerieDao implements Dao<Serie>{
         assert element.getId() != null;
         Optional<Serie> search = serieJPA.findById(element.getId());
         assert search.isPresent();
-
+    
         Serie deleteSerie = search.get();
         Serie copy = new Serie(deleteSerie.getId(),deleteSerie.getNom());
         serieJPA.deleteById(element.getId());

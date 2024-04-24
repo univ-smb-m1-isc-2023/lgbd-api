@@ -7,16 +7,14 @@ import fr.univusmb.lgbd.model.Bd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/bd")
+@CrossOrigin(origins = {"*"})
 public class BdController {
 
     @Autowired
@@ -37,7 +35,7 @@ public class BdController {
 
     @PostMapping("/add")
     public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn, @RequestParam("titre") String titre, @RequestParam("editeur") String editeur, @RequestParam("annee") Integer annee) {
-        System.out.println("CREATE : nom : " + isbn + " prenom : " + titre + " editeur : " + editeur + " annee " + annee);
+        System.out.println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
         bdDao.save(new Bd(isbn, titre,editeur,annee));
         return ResponseEntity.ok().build();
