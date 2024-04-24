@@ -151,4 +151,16 @@ public class Bd {
         return annee;
     }
 
+    public String getGenre() { return genre;}
+
+    public String getResume() { return resume;}
+
+    public Integer getNote() { return note;}
+
+    public String getImage() { return image; }
+
+    public Auteur getAuteur() { return auteur ; }
+
+    public Serie getSerie() { return serie ; }
+
 }
