@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 
 
@@ -14,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 public class ScrapController {
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestParam("url") String url) {
-        System.out.println("SCRAP : url : " + url);
+    public ResponseEntity<Void> scrap(@RequestBody String body) {
+        System.out.println("Scrap : " + body);
         return ResponseEntity.ok().build();
     }
 }
