@@ -81,8 +81,6 @@ public class Bd {
 
     }
 
-
-
     /* Comparaison */
     public boolean equals(Object o) {
         if (o == this)
@@ -132,6 +130,10 @@ public class Bd {
         this.serie = serie;
     }
 
+    public void setAuteur(Auteur auteur) {
+        this.auteur = auteur;
+    }
+
     /* *** */
 
     /* getter */
@@ -151,16 +153,28 @@ public class Bd {
         return annee;
     }
 
-    public String getGenre() { return genre;}
+    public String getGenre() {
+        return genre;
+    }
 
-    public String getResume() { return resume;}
+    public String getResume() {
+        return resume;
+    }
 
-    public Integer getNote() { return note;}
+    public Integer getNote() {
+        return note;
+    }
 
-    public String getImage() { return image; }
+    public String getImage() {
+        return image;
+    }
 
-    public Auteur getAuteur() { return auteur ; }
+    public Auteur getAuteur() {
+        return auteur;
+    }
 
-    public Serie getSerie() { return serie ; }
+    public Serie getSerie() {
+        return serie;
+    }
 
 }
