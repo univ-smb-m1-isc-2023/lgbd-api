@@ -44,10 +44,14 @@ public class BdController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn, @RequestParam("titre") String titre,
-            @RequestParam("editeur") String editeur, @RequestParam("annee") Integer annee,
-            @RequestParam("resume") String resume, @RequestParam("auteurNom") String auteurNom,
-            @RequestParam("auteurPrenom") String auteurPrenom, @RequestParam("seriName") String serieName) {
+    public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn,
+            @RequestParam(required = false, name = "titre") String titre,
+            @RequestParam(required = false, name = "editeur") String editeur,
+            @RequestParam(required = false, name = "annee") Integer annee,
+            @RequestParam(required = false, name = "resume") String resume,
+            @RequestParam(required = false, name = "auteurNom") String auteurNom,
+            @RequestParam(required = false, name = "auteurPrenom") String auteurPrenom,
+            @RequestParam(required = false, name = "seriName") String serieName) {
         System.out
                 .println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
