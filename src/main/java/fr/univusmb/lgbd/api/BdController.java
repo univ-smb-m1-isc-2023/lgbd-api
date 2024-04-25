@@ -29,6 +29,12 @@ public class BdController {
         return ResponseEntity.ok(bdDao.getAll());
     }
 
+    @GetMapping("/bdCount")
+    public ResponseEntity<Long> count() {
+        long count = bdDao.getAll().size();
+        return ResponseEntity.ok(count);
+    }
+
     @GetMapping("/get")
     public ResponseEntity<Bd> get(@RequestParam("isbn") Long isbn) {
         Optional<Bd> search = bdDao.get(isbn);
