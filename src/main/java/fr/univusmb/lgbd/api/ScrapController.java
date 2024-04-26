@@ -1,6 +1,6 @@
 package fr.univusmb.lgbd.api;
 
-import org.springframework.boot.json.JacksonJsonParser;
+// import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +34,16 @@ public class ScrapController {
     }
 
     public void addBd(String body) {
-        // Convert body to JSON
-        JacksonJsonParser parser = new JacksonJsonParser();
-        parser.parseMap(body);
-        Long isbn = Long.parseLong(parser.get("isbn"));
-        String titre = parser.get("titre");
-        String editeur = parser.get("editeur");
-        Integer annee = Integer.parseInt(parser.get("annee"));
-        String resume = parser.get("resume");
-        String auteur = parser.get("auteur");
-        String serie = parser.get("serie");
+        // // Convert body to JSON
+        // JacksonJsonParser parser = new JacksonJsonParser();
+        // parser.parseMap(body);
+        // Long isbn = Long.parseLong(parser.get("isbn"));
+        // String titre = parser.get("titre");
+        // String editeur = parser.get("editeur");
+        // Integer annee = Integer.parseInt(parser.get("annee"));
+        // String resume = parser.get("resume");
+        // String auteur = parser.get("auteur");
+        // String serie = parser.get("serie");
         System.out.println("CREATE : isbn : " + isbn);
         System.out.println("CREATE : titre : " + titre);
         System.out.println("CREATE : editeur : " + editeur);
