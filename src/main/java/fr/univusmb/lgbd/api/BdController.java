@@ -38,6 +38,7 @@ public class BdController {
 
     @GetMapping("/get")
     public ResponseEntity<Bd> get(@RequestParam("isbn") Long isbn) {
+        System.out.println("GET : isbn : " + isbn);
         Optional<Bd> search = bdDao.get(isbn);
         assert search.isPresent();
         Bd find = search.get();
