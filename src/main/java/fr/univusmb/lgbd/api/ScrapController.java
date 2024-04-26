@@ -12,7 +12,7 @@ import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 @RestController
 @CrossOrigin(origins = { "*" })
