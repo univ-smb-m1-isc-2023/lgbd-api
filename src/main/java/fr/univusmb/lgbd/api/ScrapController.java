@@ -4,6 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 
 
 @RestController
