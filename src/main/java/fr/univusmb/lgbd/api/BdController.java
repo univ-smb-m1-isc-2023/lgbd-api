@@ -51,7 +51,9 @@ public class BdController {
             @RequestParam(required = false, name = "resume") String resume,
             @RequestParam(required = false, name = "auteurNom") String auteurNom,
             @RequestParam(required = false, name = "auteurPrenom") String auteurPrenom,
-            @RequestParam(required = false, name = "seriName") String serieName) {
+            @RequestParam(required = false, name = "seriName") String serieName,
+            @RequestParam(required = false, name = "note") List<String> genre,
+            @RequestParam(required = false, name = "image") List<String> image) {
         System.out
                 .println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
@@ -66,7 +68,7 @@ public class BdController {
         Serie serie = serieDao.getByName(serieName);
 
         Integer note = 0;
-        bdDao.save(new Bd(isbn, titre, editeur, annee, "", resume, note, auteur, "", serie));
+        bdDao.save(new Bd(isbn, titre, editeur, annee, genre, resume, note, auteur, image, serie));
 
         return ResponseEntity.ok().build();
     }
