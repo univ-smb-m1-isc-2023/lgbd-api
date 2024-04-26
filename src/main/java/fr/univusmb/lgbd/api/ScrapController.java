@@ -1,13 +1,14 @@
 package fr.univusmb.lgbd.api;
 
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.google.gson.*;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
+
 
 
 @RestController
@@ -23,7 +24,9 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
+        body = body.replace("")
         this.scrap = body;
+
         addBd(body);
         return ResponseEntity.ok().build();
     }
@@ -34,14 +37,16 @@ public class ScrapController {
     }
 
     public void addBd(String body) {
-        JsonObject json = new JsonParser().parse(body).getAsJsonObject();
-        Long isbn = json.get("isbn").getAsLong();
-        String titre = json.get("titre").getAsString();
-        String editeur = json.get("editeur").getAsString();
-        Integer annee = json.get("annee").getAsInt();
-        String resume = json.get("resume").getAsString();
-        String auteur = json.get("auteur").getAsString();
-        String serie = json.get("serie").getAsString();
+        // Convert body to JSON
+        JacksonJsonParser parser = new JacksonJsonParser();
+        parser.parseMap(body);
+        Long isbn = Long.parseLong(parser.get("isbn"));
+        String titre = parser.get("titre");
+        String editeur = parser.get("editeur");
+        Integer annee = Integer.parseInt(parser.get("annee"));
+        String resume = parser.get("resume");
+        String auteur = parser.get("auteur");
+        String serie = parser.get("serie");
         System.out.println("CREATE : isbn : " + isbn);
         System.out.println("CREATE : titre : " + titre);
         System.out.println("CREATE : editeur : " + editeur);
