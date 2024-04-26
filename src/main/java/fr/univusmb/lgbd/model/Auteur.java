@@ -17,6 +17,7 @@ public class Auteur {
     @Column(name = "nom", nullable = false)
     private String nom;
 
+    @Column(name = "bd", nullable = true)
     @OneToMany(mappedBy = "isbn")
     private List<Bd> bd;
 
@@ -38,6 +39,10 @@ public class Auteur {
         this.bd.add(bd);
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     /* Getter */
 
     public Long getId() {
@@ -46,6 +51,10 @@ public class Auteur {
 
     public String getNom() {
         return nom;
+    }
+
+    public List<Bd> getBd() {
+        return bd;
     }
 
     /* *** */
