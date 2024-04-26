@@ -12,12 +12,11 @@ import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONObject;
 
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
-    private JSONObject body;
+    private String body;
     private JsonNode map;
 
     @Autowired
@@ -26,14 +25,14 @@ public class ScrapController {
     private PostgresSerieDao serieDao;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestBody JSONObject body) throws Exception{
+    public ResponseEntity<Void> scrap(@RequestBody String body) throws Exception{
         System.out.println("Scrap : " + body);
-        // body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
-        // body = body.replace("\\", ""); // Remove \
-        // body = body.replace("\u0000", "\\"); // Replace placeholder with \\
+        body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
+        body = body.replace("\\", ""); // Remove \
+        body = body.replace("\u0000", "\\"); // Replace placeholder with \\
 
         // //Unescape JSON
-        // body = StringEscapeUtils.unescapeJava(body);
+        body = StringEscapeUtils.unescapeJava(body);
 
         // ObjectMapper mapper = new ObjectMapper();
         // JsonNode jsonBody = mapper.readTree(body);
@@ -41,12 +40,12 @@ public class ScrapController {
         this.scrap = body;
         this.map = jsonBody;
 
-        addBd(body);
+        addBd(jsonBody);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/scrap")
-    public JSONObject getScrap() {
+    public String getScrap() {
         return this.scrap;
     }
 
@@ -55,7 +54,7 @@ public class ScrapController {
         return this.map;
     }
 
-    public void addBd(JSONObject jsonBD) {
+    public void addBd(JsonNode jsonBD) {
         Long isbn = jsonBD.get("ISBN").asLong();
         String titre = jsonBD.get("titre").asText();
         String editeur = jsonBD.get("editeur").asText();
