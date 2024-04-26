@@ -89,8 +89,14 @@ public class ScrapController {
         System.out.println("Create : serie : " + serie);
 
         //Ajout à la base de données
-        Auteur newAuteur = new Auteur(nom);
-        auteurDao.save(newAuteur);
+        Optional<Auteur> search = auteurDao.getByNomPrenom(nom);
+        Auteur auteur = null;
+        if(search.isPresent()){
+            auteur = search.get();
+        } else {
+            auteur = new Auteur(nom);
+            auteurDao.save(auteur);
+        }
         Bd bd = new Bd(Long.parseLong(isbn), titre, editeur, 2024,null, resume, 0, auteur, null, serie);
         bdDao.save(bd);
     
