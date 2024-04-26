@@ -30,7 +30,7 @@ public class Auteur {
         this.nom = nom;
     }
 
-    public Auteur(String nom, String prenom) {
+    public Auteur(String nom) {
         this.nom = nom;
     }
 
