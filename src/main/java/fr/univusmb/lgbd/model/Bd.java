@@ -116,6 +116,14 @@ public class Bd {
         this.genre = genre;
     }
 
+    public void addImage(List<String> image) {
+        this.image.addAll(image);
+    }
+
+    public void addGenre(List<String> genre) {
+        this.genre.addAll(genre);
+    }
+
     public void setResume(String resume) {
         this.resume = resume;
     }
