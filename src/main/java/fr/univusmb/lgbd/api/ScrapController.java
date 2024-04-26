@@ -1,8 +1,6 @@
 package fr.univusmb.lgbd.api;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.apache.commons.text.StringEscapeUtils;
@@ -10,12 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
-import java.util.HashMap;
-import java.util.Map;
 import fr.univusmb.lgbd.model.Auteur;
 import fr.univusmb.lgbd.model.Bd;
-import fr.univusmb.lgbd.model.Serie;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = { "*" })
