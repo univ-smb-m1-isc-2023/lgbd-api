@@ -62,11 +62,15 @@ public class BdController {
         assert annee != null;
         assert titre != null;
 
-        Auteur auteur = auteurDao.getByNomPrenom(auteurNom);
-        if (auteur == null) {
-            System.out.println("Auteur not found");
-            auteur = new Auteur(auteurNom);
-            auteurDao.save(auteur);
+        Auteur auteur = null;
+        if (auteurNom != null) {
+
+            auteur = auteurDao.getByNomPrenom(auteurNom);
+            if (auteur == null) {
+                System.out.println("Auteur not found");
+                auteur = new Auteur(auteurNom);
+                auteurDao.save(auteur);
+            }
         }
         Serie serie = serieDao.getByName(serieName);
 
