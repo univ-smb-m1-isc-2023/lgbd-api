@@ -28,8 +28,11 @@ public class ScrapController {
         System.out.println("Scrap : " + body);
         body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
         body = body.replace("\\", ""); // Remove \
-        body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+        body = body.replace("\u0000", "\\"); // Replace placeholder with \\
+
+        //Unescape JSON
         body = StringEscapeUtils.unescapeJava(body);
+
         //Parse en JSON
         // ObjectMapper mapper = new ObjectMapper();
         // Map<String, Object> map = new HashMap<>();
