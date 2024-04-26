@@ -17,7 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
     private String scrap;
-    private HashMap<> map;
+    private Map<String, Object> map;
 
     @Autowired
     private PostgresBdDao bdDao;
