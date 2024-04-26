@@ -30,6 +30,7 @@ public class ScrapController {
         body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
         body = body.replace("\\", ""); // Remove \
         body = body.replace("\u0000", "\\"); // Replace placeholder with \\
+        body = body.replace("\/", "\\\/"); // Replace \" with "
 
         System.out.println("Scrap1 : " + body);
 
