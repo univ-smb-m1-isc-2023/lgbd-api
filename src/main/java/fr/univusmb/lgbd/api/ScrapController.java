@@ -74,7 +74,7 @@ public class ScrapController {
         Integer annee = jsonBD.get("annee").asInt();
         String resume = jsonBD.get("resume").asText();
         String nom = jsonBD.get("auteur").asText();
-        String serie = jsonBD.get("serie").asText();
+        String serie = jsonBD.get("album").asText();
 
         System.out.println("Create : isbn : " + isbn);
         System.out.println("Create : titre : " + titre);
@@ -83,5 +83,9 @@ public class ScrapController {
         System.out.println("Create : resume : " + resume);
         System.out.println("Create : nom : " + nom);
         System.out.println("Create : serie : " + serie);
+
+        //Ajout à la base de données
+        Auteur newAuteur = new Auteur(nom);
+        new Bd(Long.parseLong(isbn), titre, editeur, 2024,null, resume, 0, auteur, null, serie);
     }
 }
