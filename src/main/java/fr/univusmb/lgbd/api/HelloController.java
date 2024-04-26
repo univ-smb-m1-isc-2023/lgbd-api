@@ -10,11 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresUserDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
+import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
+import fr.univusmb.lgbd.model.Auteur;
 import fr.univusmb.lgbd.model.LoginRequest;
+import fr.univusmb.lgbd.model.Serie;
 import fr.univusmb.lgbd.model.User;
+import fr.univusmb.lgbd.model.Bd;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +41,15 @@ public class HelloController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PostgresAuteurDao auteurDao;
+
+    @Autowired
+    private PostgresSerieDao serieDao;
+
+    @Autowired
+    private PostgresBdDao bdDao;
 
     private LocalDateTime startTime = LocalDateTime.now();
 
@@ -104,6 +120,85 @@ public class HelloController {
         User deletedUser = userDao.delete(user);
         if (deletedUser != null) {
             return ResponseEntity.ok(deletedUser);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/addFollowAuteur")
+    public ResponseEntity<Void> addFollowAuteur(@RequestParam("userId") Long userId,
+            @RequestParam("auteurId") Long auteurId) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Auteur> auteur = auteurDao.get(auteurId);
+        if (user.isPresent() && auteur.isPresent()) {
+            User findUser = user.get();
+            Auteur findAuteur = auteur.get();
+            findUser.addFollowAuteur(findAuteur);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/removeFollowAuteur")
+    public ResponseEntity<Void> removeFollowAuteur(@RequestParam("userId") Long userId,
+            @RequestParam("auteurId") Long auteurId) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Auteur> auteur = auteurDao.get(auteurId);
+        if (user.isPresent() && auteur.isPresent()) {
+            User findUser = user.get();
+            Auteur findAuteur = auteur.get();
+            findUser.removeFollowAuteur(findAuteur);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/addFollowSerie")
+    public ResponseEntity<Void> addFollowSerie(@RequestParam("userId") Long userId,
+            @RequestParam("serieId") Long serieId) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Serie> serie = serieDao.get(serieId);
+        if (user.isPresent() && serie.isPresent()) {
+            User findUser = user.get();
+            Serie findSerie = serie.get();
+            findUser.addFollowSerie(findSerie);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/removeFollowSerie")
+    public ResponseEntity<Void> removeFollowSerie(@RequestParam("userId") Long userId,
+            @RequestParam("serieId") Long serieId) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Serie> serie = serieDao.get(serieId);
+        if (user.isPresent() && serie.isPresent()) {
+            User findUser = user.get();
+            Serie findSerie = serie.get();
+            findUser.removeFollowSerie(findSerie);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/addCollection")
+    public ResponseEntity<Void> addCollection(@RequestParam("userId") Long userId, @RequestParam("isbn") Long isbn) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Bd> bd = bdDao.get(isbn);
+        if (user.isPresent() && bd.isPresent()) {
+            User findUser = user.get();
+            Bd findBd = bd.get();
+            findUser.addBd(findBd);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }

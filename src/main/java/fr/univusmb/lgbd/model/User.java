@@ -1,7 +1,6 @@
 package fr.univusmb.lgbd.model;
 
-import org.hibernate.annotations.ManyToAny;
-
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,15 +44,22 @@ public class User {
     private List<Auteur> auteursSuivi;
 
     public User() {
+
+        collection = new ArrayList<Bd>();
+        bdLiked = new ArrayList<Bd>();
+        bdPret = new ArrayList<Bd>();
+        seriesSuivi = new ArrayList<Serie>();
     }
 
     public User(String name, String email, String password) {
+        this();
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
     public User(Long id, String name, String email, String password) {
+        this();
         this.id = id;
         this.name = name;
         this.email = email;
@@ -61,6 +67,7 @@ public class User {
     }
 
     public User(Long id, String name, String email, String password, boolean admin) {
+        this();
         this.id = id;
         this.name = name;
         this.email = email;
@@ -106,6 +113,66 @@ public class User {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public void addFollowAuteur(Auteur auteur) {
+        auteursSuivi.add(auteur);
+    }
+
+    public void addFollowSerie(Serie serie) {
+        seriesSuivi.add(serie);
+    }
+
+    public void addLikedBd(Bd bd) {
+        bdLiked.add(bd);
+    }
+
+    public void addBd(Bd bd) {
+        collection.add(bd);
+    }
+
+    public void addPretBd(Bd bd) {
+        bdPret.add(bd);
+    }
+
+    public void removeFollowAuteur(Auteur auteur) {
+        auteursSuivi.remove(auteur);
+    }
+
+    public void removeFollowSerie(Serie serie) {
+        seriesSuivi.remove(serie);
+    }
+
+    public void removeLikedBd(Bd bd) {
+        bdLiked.remove(bd);
+    }
+
+    public void removeBd(Bd bd) {
+        collection.remove(bd);
+    }
+
+    public void removePretBd(Bd bd) {
+        bdPret.remove(bd);
+    }
+
+    public List<Auteur> getAuteursSuivi() {
+        return auteursSuivi;
+    }
+
+    public List<Serie> getSeriesSuivi() {
+        return seriesSuivi;
+    }
+
+    public List<Bd> getBdLiked() {
+        return bdLiked;
+    }
+
+    public List<Bd> getCollection() {
+        return collection;
+    }
+
+    public List<Bd> getBdPret() {
+        return bdPret;
     }
 
 }
