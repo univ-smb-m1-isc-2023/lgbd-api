@@ -37,7 +37,7 @@ public class ScrapController {
         this.scrap = body;
         //Parse en JSON
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode json = mapper.readTree(this.scrap);
+        JsonNode json = mapper.readTree(body);
         this.map = json;
 
         //addBd(body);
