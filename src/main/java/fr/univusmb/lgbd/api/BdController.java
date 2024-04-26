@@ -47,12 +47,11 @@ public class BdController {
 
     @PostMapping("/add")
     public ResponseEntity<Void> create(@RequestParam("isbn") Long isbn,
-            @RequestParam(required = false, name = "titre") String titre,
-            @RequestParam(required = false, name = "editeur") String editeur,
-            @RequestParam(required = false, name = "annee") Integer annee,
+            @RequestParam(name = "titre") String titre,
+            @RequestParam(name = "editeur") String editeur,
+            @RequestParam(name = "annee") Integer annee,
             @RequestParam(required = false, name = "resume") String resume,
             @RequestParam(required = false, name = "auteurNom") String auteurNom,
-            @RequestParam(required = false, name = "auteurPrenom") String auteurPrenom,
             @RequestParam(required = false, name = "seriName") String serieName,
             @RequestParam(required = false, name = "note") List<String> genre,
             @RequestParam(required = false, name = "image") List<String> image) {

@@ -24,9 +24,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = { "*" })
 public class HelloController {
     @Autowired
     private DataSource dataSource;
@@ -36,6 +38,15 @@ public class HelloController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    private LocalDateTime startTime = LocalDateTime.now();
+
+    @GetMapping("/startTime")
+    public String startTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = startTime.format(formatter);
+        return "App started at: " + formattedDateTime;
+    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -72,31 +83,32 @@ public class HelloController {
     @PostMapping("/checklogin")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         Optional<User> existingUser = userDao.findByEmail(loginRequest.getEmail());
-        if(existingUser.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), existingUser.get().getPassword())){
-            return ResponseEntity.ok(existingUser.get());   
-        }else{
+        if (existingUser.isPresent()
+                && passwordEncoder.matches(loginRequest.getPassword(), existingUser.get().getPassword())) {
+            return ResponseEntity.ok(existingUser.get());
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody User user){
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         User updatedUser = userDao.update(user);
-        if(updatedUser != null){
+        if (updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id){
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         User user = new User();
         user.setId(id);
         User deletedUser = userDao.delete(user);
-        if(deletedUser != null){
+        if (deletedUser != null) {
             return ResponseEntity.ok(deletedUser);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
