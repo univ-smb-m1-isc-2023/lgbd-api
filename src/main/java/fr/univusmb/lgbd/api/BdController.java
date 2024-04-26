@@ -20,7 +20,9 @@ public class BdController {
 
     @Autowired
     private PostgresBdDao bdDao;
+    @Autowired
     private PostgresAuteurDao auteurDao;
+    @Autowired
     private PostgresSerieDao serieDao;
 
     @GetMapping("/all")
