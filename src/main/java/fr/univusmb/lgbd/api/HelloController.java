@@ -203,4 +203,50 @@ public class HelloController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/removeCollection")
+    public ResponseEntity<Void> removeCollection(@RequestParam("userId") Long userId, @RequestParam("isbn") Long isbn) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Bd> bd = bdDao.get(isbn);
+        if (user.isPresent() && bd.isPresent()) {
+            User findUser = user.get();
+            Bd findBd = bd.get();
+            findUser.removeBd(findBd);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/addLikedBd")
+    public ResponseEntity<Void> addLikedBd(@RequestParam("userId") Long userId, @RequestParam("isbn") Long isbn) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Bd> bd = bdDao.get(isbn);
+        if (user.isPresent() && bd.isPresent()) {
+            User findUser = user.get();
+            Bd findBd = bd.get();
+            findUser.addLikedBd(findBd);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/removeLikedBd")
+    public ResponseEntity<Void> removeLikedBd(@RequestParam("userId") Long userId, @RequestParam("isbn") Long isbn) {
+        Optional<User> user = userDao.get(userId);
+        Optional<Bd> bd = bdDao.get(isbn);
+        if (user.isPresent() && bd.isPresent()) {
+            User findUser = user.get();
+            Bd findBd = bd.get();
+            findUser.removeLikedBd(findBd);
+            userDao.save(findUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
