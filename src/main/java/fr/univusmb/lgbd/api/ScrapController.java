@@ -60,7 +60,7 @@ public class ScrapController {
     }
 
     public void addBd(JsonNode jsonBD) {
-        String isbn = jsonBD.get("isbn").asText();
+        Long isbn = jsonBD.get("isbn").asLong();
         String titre = jsonBD.get("titre").asText();
         String editeur = jsonBD.get("editeur").asText();
         Integer annee = jsonBD.get("annee").asInt();
