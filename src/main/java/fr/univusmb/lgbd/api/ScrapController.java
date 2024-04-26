@@ -15,6 +15,7 @@ import java.util.Map;
 import fr.univusmb.lgbd.model.Auteur;
 import fr.univusmb.lgbd.model.Bd;
 import fr.univusmb.lgbd.model.Serie;
+import java.util.Optional;
 
 
 @RestController
