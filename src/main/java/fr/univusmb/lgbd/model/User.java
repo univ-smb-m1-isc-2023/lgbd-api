@@ -1,8 +1,12 @@
 package fr.univusmb.lgbd.model;
 
+import org.hibernate.annotations.ManyToAny;
+
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +28,21 @@ public class User {
 
     @Column(name = "admin", nullable = false)
     private boolean admin;
+
+    @ManyToMany
+    private List<Bd> bdLiked;
+
+    @ManyToMany
+    private List<Bd> collection;
+
+    @ManyToMany
+    private List<Bd> bdPret;
+
+    @ManyToMany
+    private List<Serie> seriesSuivi;
+
+    @ManyToMany
+    private List<Auteur> auteursSuivi;
 
     public User() {
     }
@@ -61,7 +80,7 @@ public class User {
         return id;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
@@ -81,7 +100,7 @@ public class User {
         this.email = email;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 

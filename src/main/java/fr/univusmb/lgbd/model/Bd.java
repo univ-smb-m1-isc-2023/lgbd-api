@@ -3,6 +3,7 @@ package fr.univusmb.lgbd.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -40,6 +41,9 @@ public class Bd {
 
     @ManyToOne
     private Serie serie;
+
+    @ManyToMany(mappedBy = "bdLiked")
+    private List<User> usersLiking;
 
     public Bd(Long isbn,
             String titre,
