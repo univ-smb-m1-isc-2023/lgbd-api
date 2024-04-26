@@ -34,12 +34,11 @@ public class ScrapController {
         //Unescape JSON
         body = StringEscapeUtils.unescapeJava(body);
 
+        this.scrap = body;
         //Parse en JSON
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode json = mapper.readTree(body);
-        
+        JsonNode json = mapper.readTree(this.scrap);
         this.map = json;
-        this.scrap = body;
 
         //addBd(body);
         return ResponseEntity.ok().build();
