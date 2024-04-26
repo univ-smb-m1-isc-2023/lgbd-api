@@ -47,4 +47,15 @@ public class Serie {
     }
     /* *** */
 
+    /* setter */
+    public void setId(Long id) {
+        this.serieId = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /* *** */
+
 }
