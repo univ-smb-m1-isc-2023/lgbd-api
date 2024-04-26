@@ -1,6 +1,7 @@
 package fr.univusmb.lgbd.api;
 
 // import org.springframework.boot.json.JacksonJsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,17 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
-        body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
-        body = body.replace("\\", ""); // Remove \
-        body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+        // body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
+        // body = body.replace("\\", ""); // Remove \
+        // body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+        //Parse en JSON
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.scrap = body;
 
