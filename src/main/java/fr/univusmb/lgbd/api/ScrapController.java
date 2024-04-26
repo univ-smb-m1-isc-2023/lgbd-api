@@ -45,7 +45,7 @@ public class ScrapController {
         this.scrap = body;
         this.map = jsonBody;
 
-        //addBd(body);
+        addBd(jsonBody);
         return ResponseEntity.ok().build();
     }
 
@@ -59,36 +59,21 @@ public class ScrapController {
         return this.map;
     }
 
-    public void addBd(String body) {
-        // // Convert body to JSON
-        // JacksonJsonParser parser = new JacksonJsonParser();
-        // parser.parseMap(body);
-        // Long isbn = Long.parseLong(parser.get("isbn"));
-        // String titre = parser.get("titre");
-        // String editeur = parser.get("editeur");
-        // Integer annee = Integer.parseInt(parser.get("annee"));
-        // String resume = parser.get("resume");
-        // String auteur = parser.get("auteur");
-        // String serie = parser.get("serie");
-        // System.out.println("CREATE : isbn : " + isbn);
-        // System.out.println("CREATE : titre : " + titre);
-        // System.out.println("CREATE : editeur : " + editeur);
-        // System.out.println("CREATE : annee : " + annee);
-        // System.out.println("CREATE : resume : " + resume);
-        // System.out.println("CREATE : auteur : " + auteur);
-        // System.out.println("CREATE : serie : " + serie);
-        // System.out.println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee + " resume : " + resume + " auteur : " + auteur + " serie : " + serie);
-        // Bd bd = new Bd(isbn, titre, editeur, annee, resume);
-        // bdDao.save(bd);
-        // Auteur auteur = auteurDao.getByNomPrenom(auteur);
-        // if (auteur == null) {
-        //     auteur = new Auteur(auteur);
-        //     auteurDao.save(auteur);
-        // }
-        // Serie serie = serieDao.getByName(serie);
-        // if (serie == null) {
-        //     serie = new Serie(serie);
-        //     serieDao.save(serie);
-        // }
+    public void addBd(JsonNode jsonBD) {
+        String isbn = jsonBD.get("isbn").asText();
+        String titre = jsonBD.get("titre").asText();
+        String editeur = jsonBD.get("editeur").asText();
+        Integer annee = jsonBD.get("annee").asInt();
+        String resume = jsonBD.get("resume").asText();
+        String nom = jsonBD.get("auteur").asText();
+        String serie = jsonBD.get("serie").asText();
+
+        System.out.println("Create : isbn : " + isbn);
+        System.out.println("Create : titre : " + titre);
+        System.out.println("Create : editeur : " + editeur);
+        System.out.println("Create : annee : " + annee);
+        System.out.println("Create : resume : " + resume);
+        System.out.println("Create : nom : " + nom);
+        System.out.println("Create : serie : " + serie);
     }
 }
