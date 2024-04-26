@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
@@ -25,17 +26,18 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
-        // body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
-        // body = body.replace("\\", ""); // Remove \
-        // body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+        body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
+        body = body.replace("\\", ""); // Remove \
+        body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+        body = StringEscapeUtils.unescapeJava(body);
         //Parse en JSON
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map = new HashMap<>();
-        try {
-            map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<String, Object> map = new HashMap<>();
+        // try {
+        //     map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         this.scrap = body;
 
