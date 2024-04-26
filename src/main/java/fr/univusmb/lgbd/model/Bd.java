@@ -27,12 +27,16 @@ public class Bd {
     @Column(name = "annee", nullable = false)
     private Integer annee;
 
+    @Column(name = "genre")
     private List<String> genre;
 
+    @Column(name = "resume")
     private String resume;
 
+    @Column(name = "note")
     private Integer note;
 
+    @Column(name = "image")
     private List<String> image;
 
     @ManyToOne
