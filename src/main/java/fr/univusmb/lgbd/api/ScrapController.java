@@ -22,9 +22,10 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
+        body = body.replace("\[^\]", "")
         this.scrap = body;
 
-        addBd(body);
+        //addBd(body);
         return ResponseEntity.ok().build();
     }
 
@@ -42,8 +43,8 @@ public class ScrapController {
         // String editeur = parser.get("editeur");
         // Integer annee = Integer.parseInt(parser.get("annee"));
         // String resume = parser.get("resume");
-        // // String auteur = parser.get("auteur");
-        // // String serie = parser.get("serie");
+        // String auteur = parser.get("auteur");
+        // String serie = parser.get("serie");
         // System.out.println("CREATE : isbn : " + isbn);
         // System.out.println("CREATE : titre : " + titre);
         // System.out.println("CREATE : editeur : " + editeur);
@@ -51,7 +52,7 @@ public class ScrapController {
         // System.out.println("CREATE : resume : " + resume);
         // System.out.println("CREATE : auteur : " + auteur);
         // System.out.println("CREATE : serie : " + serie);
-        //System.out.println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee + " resume : " + resume + " auteur : " + auteur + " serie : " + serie);
+        // System.out.println("CREATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee + " resume : " + resume + " auteur : " + auteur + " serie : " + serie);
         // Bd bd = new Bd(isbn, titre, editeur, annee, resume);
         // bdDao.save(bd);
         // Auteur auteur = auteurDao.getByNomPrenom(auteur);
