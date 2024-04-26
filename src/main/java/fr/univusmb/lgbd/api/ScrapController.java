@@ -17,6 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
     private String scrap;
+    private HashMap<> map;
 
     @Autowired
     private PostgresBdDao bdDao;
@@ -34,14 +35,14 @@ public class ScrapController {
         body = StringEscapeUtils.unescapeJava(body);
 
         //Parse en JSON
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<String, Object> map = new HashMap<>();
-        // try {
-        //     map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.map = map;
         this.scrap = body;
 
         //addBd(body);
@@ -51,6 +52,11 @@ public class ScrapController {
     @GetMapping("/scrap")
     public String getScrap() {
         return this.scrap;
+    }
+
+    @GetMapping("/scrap/map")
+    public Map<String, Object> getMap() {
+        return this.map;
     }
 
     public void addBd(String body) {
