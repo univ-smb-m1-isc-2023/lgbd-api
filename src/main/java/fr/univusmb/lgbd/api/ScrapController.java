@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
-    private String scrap;
+    private JSON body;
     private JsonNode map;
 
     @Autowired
@@ -25,22 +25,22 @@ public class ScrapController {
     private PostgresSerieDao serieDao;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestBody String body) throws Exception{
+    public ResponseEntity<Void> scrap(@RequestBody JSON body) throws Exception{
         System.out.println("Scrap : " + body);
-        body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
-        body = body.replace("\\", ""); // Remove \
-        body = body.replace("\u0000", "\\"); // Replace placeholder with \\
+        // body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
+        // body = body.replace("\\", ""); // Remove \
+        // body = body.replace("\u0000", "\\"); // Replace placeholder with \\
 
-        //Unescape JSON
-        body = StringEscapeUtils.unescapeJava(body);
+        // //Unescape JSON
+        // body = StringEscapeUtils.unescapeJava(body);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonBody = mapper.readTree(body);
+        // ObjectMapper mapper = new ObjectMapper();
+        // JsonNode jsonBody = mapper.readTree(body);
 
         this.scrap = body;
         this.map = jsonBody;
 
-        addBd(jsonBody);
+        addBd(body);
         return ResponseEntity.ok().build();
     }
 
