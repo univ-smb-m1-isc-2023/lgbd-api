@@ -9,8 +9,6 @@ import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresBdDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 
-
-
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {

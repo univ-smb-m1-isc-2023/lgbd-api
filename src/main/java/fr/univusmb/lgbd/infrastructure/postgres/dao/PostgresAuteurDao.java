@@ -34,7 +34,7 @@ public class PostgresAuteurDao implements Dao<Auteur> {
         return auteurJPA.findAll();
     }
 
-    public Auteur getByNomPrenom(String nom, String prenom) {
+    public Auteur getByNomPrenom(String nom) {
         List<Auteur> auteurs = auteurJPA.findAll();
         Optional<Auteur> res = auteurs.stream()
                 .filter(a -> a.getNom().equals(nom))
