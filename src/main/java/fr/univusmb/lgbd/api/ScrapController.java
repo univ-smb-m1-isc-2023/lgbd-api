@@ -31,15 +31,23 @@ public class ScrapController {
         body = body.replace("\\", ""); // Remove \
         body = body.replace("\u0000", "\\"); // Replace placeholder with \\
 
+        System.out.println("Scrap1 : " + body);
+
         body = body.replaceFirst("\"", ""); // Remove first "
         body = body.substring(0, body.length() - 1); // Remove last "
+
+        System.out.println("Scrap2 : " + body);
 
 
         // //Unescape JSON
         body = StringEscapeUtils.unescapeJava(body);
 
+        System.out.println("Scrap3 : " + body);
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonBody = mapper.readTree(body);
+
+        System.out.println("Scrap4 : " + jsonBody);
 
         this.scrap = body;
         this.map = jsonBody;
