@@ -22,7 +22,6 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
-        body = body.replace("")
         this.scrap = body;
 
         addBd(body);
