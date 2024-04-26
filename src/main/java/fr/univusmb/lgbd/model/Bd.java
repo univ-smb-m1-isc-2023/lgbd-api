@@ -3,10 +3,8 @@ package fr.univusmb.lgbd.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import java.util.List;
 
 @Entity
@@ -29,7 +27,7 @@ public class Bd {
     private Integer annee;
 
     @Column(name = "genre")
-    private String genre;
+    private List<String> genre;
 
     @Column(name = "resume")
     private String resume;
@@ -38,7 +36,7 @@ public class Bd {
     private Integer note;
 
     @Column(name = "image")
-    private String image;
+    private List<String> image;
 
     @ManyToOne
     private Serie serie;
@@ -58,11 +56,11 @@ public class Bd {
             String titre,
             String editeur,
             Integer annee,
-            String genre,
+            List<String> genre,
             String resume,
             Integer note,
             Auteur auteur,
-            String image,
+            List<String> image,
             Serie serie) {
 
         this.isbn = isbn;
@@ -110,7 +108,7 @@ public class Bd {
         this.annee = annee;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 
@@ -122,7 +120,7 @@ public class Bd {
         this.note = note;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 
@@ -153,7 +151,7 @@ public class Bd {
         return annee;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
@@ -165,7 +163,7 @@ public class Bd {
         return note;
     }
 
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
 
