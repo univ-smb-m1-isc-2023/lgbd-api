@@ -1,7 +1,7 @@
 package fr.univusmb.lgbd.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Map;
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
     private String scrap;
-    private Map<String, Object> map;
+    private JsonNode map;
 
     @Autowired
     private PostgresBdDao bdDao;
@@ -36,13 +36,9 @@ public class ScrapController {
 
         //Parse en JSON
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map = new HashMap<>();
-        try {
-            map = mapper.readValue(body, new TypeReference<Map<String, Object>>(){});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.map = map;
+        JsonNode json = mapper.readTree(body);
+        
+        this.map = json;
         this.scrap = body;
 
         //addBd(body);
