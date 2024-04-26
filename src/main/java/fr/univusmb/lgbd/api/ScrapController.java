@@ -12,6 +12,10 @@ import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import java.util.HashMap;
 import java.util.Map;
+import fr.univusmb.lgbd.model.Auteur;
+import fr.univusmb.lgbd.model.Bd;
+import fr.univusmb.lgbd.model.Serie;
+
 
 @RestController
 @CrossOrigin(origins = { "*" })
@@ -86,6 +90,9 @@ public class ScrapController {
 
         //Ajout à la base de données
         Auteur newAuteur = new Auteur(nom);
-        new Bd(Long.parseLong(isbn), titre, editeur, 2024,null, resume, 0, auteur, null, serie);
+        auteurDao.save(newAuteur);
+        Bd bd = new Bd(Long.parseLong(isbn), titre, editeur, 2024,null, resume, 0, auteur, null, serie);
+        bdDao.save(bd);
+    
     }
 }
