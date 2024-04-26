@@ -22,7 +22,10 @@ public class ScrapController {
     @PostMapping("/scrap")
     public ResponseEntity<Void> scrap(@RequestBody String body) {
         System.out.println("Scrap : " + body);
-        body = body.replace("\[^\]", "")
+        body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
+        body = body.replace("\\", ""); // Remove \
+        body = body.replace("\u0000", "\\\\"); // Replace placeholder with \\
+
         this.scrap = body;
 
         //addBd(body);
