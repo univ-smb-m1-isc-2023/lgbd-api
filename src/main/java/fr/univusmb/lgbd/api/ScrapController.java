@@ -50,7 +50,7 @@ public class ScrapController {
     }
 
     @GetMapping("/scrap/map")
-    public Map<String, Object> getMap() {
+    public JsonNode getMap() {
         return this.map;
     }
 
