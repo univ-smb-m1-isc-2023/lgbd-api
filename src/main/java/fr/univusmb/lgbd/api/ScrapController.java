@@ -55,7 +55,7 @@ public class ScrapController {
         return this.map;
     }
 
-    public void addBd(JsonNode jsonBD) {
+    public void addBd(JSONObject jsonBD) {
         Long isbn = jsonBD.get("ISBN").asLong();
         String titre = jsonBD.get("titre").asText();
         String editeur = jsonBD.get("editeur").asText();
