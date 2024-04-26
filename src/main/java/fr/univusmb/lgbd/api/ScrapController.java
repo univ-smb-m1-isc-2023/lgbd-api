@@ -31,6 +31,10 @@ public class ScrapController {
         body = body.replace("\\", ""); // Remove \
         body = body.replace("\u0000", "\\"); // Replace placeholder with \\
 
+        body = body.replaceFirst("\"", ""); // Remove first "
+        body = body.substring(0, body.length() - 1); // Remove last "
+
+
         // //Unescape JSON
         body = StringEscapeUtils.unescapeJava(body);
 
