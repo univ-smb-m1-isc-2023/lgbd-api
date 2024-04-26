@@ -66,7 +66,6 @@ public class Bd {
             Auteur auteur,
             List<String> image,
             Serie serie) {
-
         this.isbn = isbn;
         this.titre = titre;
         this.editeur = editeur;

@@ -17,7 +17,6 @@ import fr.univusmb.lgbd.model.Bd;
 import fr.univusmb.lgbd.model.Serie;
 import java.util.Optional;
 
-
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
@@ -30,7 +29,7 @@ public class ScrapController {
     private PostgresSerieDao serieDao;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestBody String body) throws Exception{
+    public ResponseEntity<Void> scrap(@RequestBody String body) throws Exception {
         System.out.println("Scrap : " + body);
         body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
         body = body.replace("\\", ""); // Remove \
@@ -43,7 +42,6 @@ public class ScrapController {
         body = body.substring(0, body.length() - 1); // Remove last "
 
         System.out.println("Scrap2 : " + body);
-
 
         // //Unescape JSON
         body = StringEscapeUtils.unescapeJava(body);
@@ -89,17 +87,14 @@ public class ScrapController {
         System.out.println("Create : nom : " + nom);
         System.out.println("Create : serie : " + serie);
 
-        //Ajout à la base de données
-        Optional<Auteur> search = auteurDao.getByNomPrenom(nom);
-        Auteur auteur = null;
-        if(search.isPresent()){
-            auteur = search.get();
-        } else {
-            auteur = new Auteur(nom);
-            auteurDao.save(auteur);
-        }
-        Bd bd = new Bd(Long.parseLong(isbn), titre, editeur, 2024,null, resume, 0, auteur, null, serie);
+        // Ajout à la base de données
+
+        Auteur auteur = auteurDao.getByNomPrenom(nom);
+        Long new_isbn = Long.parseLong(isbn);
+        Integer new_annee = 2024;
+        Integer note = 0;
+        Bd bd = new Bd(new_isbn, titre, editeur, new_annee, null, resume, note, auteur, null, null);
         bdDao.save(bd);
-    
+
     }
 }
