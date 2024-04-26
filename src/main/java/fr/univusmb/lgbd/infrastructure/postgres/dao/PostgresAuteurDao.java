@@ -19,11 +19,10 @@ public class PostgresAuteurDao implements Dao<Auteur> {
     @Override
     public Auteur save(Auteur element) {
         assert element.getId() == null;
-        Auteur newAuteur = new Auteur(nextId++, element.getNom(), element.getPrenom());
+        Auteur newAuteur = new Auteur(nextId++, element.getNom());
 
         return auteurJPA.save(newAuteur);
     }
-
 
     @Override
     public Optional<Auteur> get(Long id) {
@@ -34,14 +33,14 @@ public class PostgresAuteurDao implements Dao<Auteur> {
     public List<Auteur> getAll() {
         return auteurJPA.findAll();
     }
-    public Auteur getByNomPrenom(String nom, String prenom){
+
+    public Auteur getByNomPrenom(String nom, String prenom) {
         List<Auteur> auteurs = auteurJPA.findAll();
         Optional<Auteur> res = auteurs.stream()
-                .filter(a -> a.getNom().equals(nom) && a.getPrenom().equals(prenom))
+                .filter(a -> a.getNom().equals(nom))
                 .findFirst();
         return res.orElse(null);
     }
-
 
     @Override
     public Auteur update(Auteur element) {
@@ -56,7 +55,7 @@ public class PostgresAuteurDao implements Dao<Auteur> {
         assert search.isPresent();
 
         Auteur deleteAuteur = search.get();
-        Auteur copy = new Auteur(deleteAuteur.getId(), deleteAuteur.getNom(), deleteAuteur.getPrenom());
+        Auteur copy = new Auteur(deleteAuteur.getId(), deleteAuteur.getNom());
 
         auteurJPA.deleteById(element.getId());
         return copy;

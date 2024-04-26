@@ -17,25 +17,21 @@ public class Auteur {
     @Column(name = "nom", nullable = false)
     private String nom;
 
-    @Column(name = "prenom", nullable = false)
-    private String prenom;
-
     @OneToMany(mappedBy = "isbn")
     private List<Bd> bd;
 
     public Auteur() {
-        this(null, null, null);
+        this.auteurId = null;
+        this.nom = null;
     }
 
-    public Auteur(Long id, String nom, String prenom) {
+    public Auteur(Long id, String nom) {
         this.auteurId = id;
         this.nom = nom;
-        this.prenom = prenom;
     }
 
     public Auteur(String nom, String prenom) {
         this.nom = nom;
-        this.prenom = prenom;
     }
 
     public void addBd(Bd bd) {
@@ -50,10 +46,6 @@ public class Auteur {
 
     public String getNom() {
         return nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
     }
 
     /* *** */
