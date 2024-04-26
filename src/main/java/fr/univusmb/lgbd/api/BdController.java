@@ -8,7 +8,6 @@ import fr.univusmb.lgbd.model.Bd;
 import fr.univusmb.lgbd.model.Serie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,9 +59,9 @@ public class BdController {
         assert editeur != null;
         assert annee != null;
         assert titre != null;
-        Auteur auteur = auteurDao.getByNomPrenom(auteurNom, auteurPrenom);
+        Auteur auteur = auteurDao.getByNomPrenom(auteurNom);
         if (auteur == null) {
-            auteur = new Auteur(auteurNom, auteurPrenom);
+            auteur = new Auteur(auteurNom);
             auteurDao.save(auteur);
         }
         Serie serie = serieDao.getByName(serieName);
@@ -79,9 +78,10 @@ public class BdController {
             @RequestParam(required = false, name = "editeur") String editeur,
             @RequestParam(required = false, name = "annee") Integer annee,
             @RequestParam(required = false, name = "resume") String resume,
-            @RequestParam(required = false, name = "auteurNom") String auteurNom,
-            @RequestParam(required = false, name = "auteurPrenom") String auteurPrenom,
-            @RequestParam(required = false, name = "seriName") String serieName) {
+            @RequestParam(required = false, name = "auteur") String auteurNom,
+            @RequestParam(required = false, name = "serie") String serieName,
+            @RequestParam(required = false, name = "note") List<String> genre,
+            @RequestParam(required = false, name = "image") List<String> image) {
         System.out
                 .println("UPDATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
@@ -100,10 +100,10 @@ public class BdController {
             if (resume != null) {
                 bdChange.setResume(resume);
             }
-            if (auteurNom != null && auteurPrenom != null) {
-                Auteur auteur = auteurDao.getByNomPrenom(auteurNom, auteurPrenom);
+            if (auteurNom != null) {
+                Auteur auteur = auteurDao.getByNomPrenom(auteurNom);
                 if (auteur == null) {
-                    auteur = new Auteur(auteurNom, auteurPrenom);
+                    auteur = new Auteur(auteurNom);
                     auteurDao.save(auteur);
                 }
                 bdChange.setAuteur(auteur);
@@ -112,6 +112,13 @@ public class BdController {
                 Serie serie = serieDao.getByName(serieName);
                 bdChange.setSerie(serie);
             }
+            if (image != null) {
+                bdChange.setImage(image);
+            }
+            if (genre != null) {
+                bdChange.setGenre(genre);
+            }
+
             bdDao.update(bdChange);
 
             return ResponseEntity.ok().build();

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auteur")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = { "*" })
 public class AuteurController {
 
     @Autowired
@@ -27,9 +27,9 @@ public class AuteurController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom) {
-        System.out.println("CREATE : nom : " + nom + " prenom : " + prenom);
-        auteurDao.save(new Auteur(nom, prenom));
+    public ResponseEntity<Void> create(@RequestParam("nom") String nom) {
+        System.out.println("CREATE : nom : " + nom);
+        auteurDao.save(new Auteur(nom));
         return ResponseEntity.ok().build();
     }
 
