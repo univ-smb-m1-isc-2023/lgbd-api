@@ -43,7 +43,7 @@ public class ScrapController {
         }
 
         this.scrap = body;
-        this.map = json;
+        this.map = jsonBody;
 
         //addBd(body);
         return ResponseEntity.ok().build();
