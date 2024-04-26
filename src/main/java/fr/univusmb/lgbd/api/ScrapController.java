@@ -25,7 +25,7 @@ public class ScrapController {
     private PostgresSerieDao serieDao;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestBody String body) {
+    public ResponseEntity<Void> scrap(@RequestBody String body) throws Exception{
         System.out.println("Scrap : " + body);
         body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
         body = body.replace("\\", ""); // Remove \
