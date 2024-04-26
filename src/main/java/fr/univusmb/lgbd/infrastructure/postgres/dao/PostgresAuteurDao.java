@@ -1,6 +1,7 @@
 package fr.univusmb.lgbd.infrastructure.postgres.dao;
 
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,12 +15,22 @@ public class PostgresAuteurDao implements Dao<Auteur> {
 
     @Autowired
     private PostgresAuteurJPA auteurJPA;
-    private Long nextId = 1L;
+
+    private Random random = new Random();
+
+    private Long generateUniqueId(){
+        Long id = random.nextLong();
+        if(auteurJPA.findById(id).isPresent()){
+            return generateUniqueId();
+        }
+        return id;
+    }
 
     @Override
     public Auteur save(Auteur element) {
         assert element.getId() == null;
-        Auteur newAuteur = new Auteur(nextId++, element.getNom(), element.getPrenom());
+        Long id = generateUniqueId();
+        Auteur newAuteur = new Auteur(id, element.getNom(), element.getPrenom());
 
         return auteurJPA.save(newAuteur);
     }
