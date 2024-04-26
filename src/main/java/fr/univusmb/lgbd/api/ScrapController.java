@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
-    private String body;
+    private String scrap;
     private JsonNode map;
 
     @Autowired
