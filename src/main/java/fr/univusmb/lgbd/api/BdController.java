@@ -122,10 +122,10 @@ public class BdController {
                 bdChange.setSerie(serie);
             }
             if (image != null) {
-                bdChange.setImage(image);
+                bdChange.addImage(image);
             }
             if (genre != null) {
-                bdChange.setGenre(genre);
+                bdChange.addGenre(genre);
             }
 
             bdDao.update(bdChange);
