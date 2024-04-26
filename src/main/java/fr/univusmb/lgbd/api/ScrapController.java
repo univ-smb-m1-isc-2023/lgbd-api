@@ -12,11 +12,12 @@ import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresAuteurDao;
 import fr.univusmb.lgbd.infrastructure.postgres.dao.PostgresSerieDao;
 import java.util.HashMap;
 import java.util.Map;
+import org.json.simple.JSONObject;
 
 @RestController
 @CrossOrigin(origins = { "*" })
 public class ScrapController {
-    private JSON body;
+    private JSONObject body;
     private JsonNode map;
 
     @Autowired
@@ -25,7 +26,7 @@ public class ScrapController {
     private PostgresSerieDao serieDao;
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> scrap(@RequestBody JSON body) throws Exception{
+    public ResponseEntity<Void> scrap(@RequestBody JSONObject body) throws Exception{
         System.out.println("Scrap : " + body);
         // body = body.replace("\\\\", "\u0000"); // Temporarily replace \\ with a placeholder
         // body = body.replace("\\", ""); // Remove \
@@ -45,7 +46,7 @@ public class ScrapController {
     }
 
     @GetMapping("/scrap")
-    public String getScrap() {
+    public JSONObject getScrap() {
         return this.scrap;
     }
 
