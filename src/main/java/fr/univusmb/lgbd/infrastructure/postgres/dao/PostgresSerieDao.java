@@ -8,17 +8,28 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Repository
 public class PostgresSerieDao implements Dao<Serie>{
     @Autowired
     private PostgresSerieJPA serieJPA;
-    private Long nextId = 1L;
+
+    private Random random = new Random();
+
+    private Long generateUniqueId(){
+        Long id = random.nextLong();
+        if(serieJPA.findById(id).isPresent()){
+            return generateUniqueId();
+        }
+        return id;
+    }
 
     @Override
     public Serie save(Serie element) {
         assert element.getId() == null;
-        Serie newSerie = new Serie(nextId++, element.getNom());
+        Long uniqueId = generateUniqueId();
+        Serie newSerie = new Serie(uniqueId, element.getNom());
         return serieJPA.save(newSerie);
     }
 
