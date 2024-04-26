@@ -79,7 +79,9 @@ public class BdController {
             @RequestParam(required = false, name = "annee") Integer annee,
             @RequestParam(required = false, name = "resume") String resume,
             @RequestParam(required = false, name = "auteur") String auteurNom,
-            @RequestParam(required = false, name = "seriName") String serieName) {
+            @RequestParam(required = false, name = "serie") String serieName,
+            @RequestParam(required = false, name = "note") List<String> genre,
+            @RequestParam(required = false, name = "image") List<String> image) {
         System.out
                 .println("UPDATE : isbn : " + isbn + " title : " + titre + " editeur : " + editeur + " annee " + annee);
         assert isbn != null;
@@ -110,6 +112,13 @@ public class BdController {
                 Serie serie = serieDao.getByName(serieName);
                 bdChange.setSerie(serie);
             }
+            if (image != null) {
+                bdChange.setImage(image);
+            }
+            if (genre != null) {
+                bdChange.setGenre(genre);
+            }
+
             bdDao.update(bdChange);
 
             return ResponseEntity.ok().build();
