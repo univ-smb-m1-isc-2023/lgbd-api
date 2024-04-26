@@ -35,12 +35,7 @@ public class ScrapController {
         body = StringEscapeUtils.unescapeJava(body);
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonBody = null;
-        try {
-            jsonBody = mapper.readTree(body);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        JsonNode jsonBody = mapper.readTree(body);
 
         this.scrap = body;
         this.map = jsonBody;
@@ -60,7 +55,7 @@ public class ScrapController {
     }
 
     public void addBd(JsonNode jsonBD) {
-        Long isbn = jsonBD.get("isbn").asLong();
+        Long isbn = jsonBD.get("ISBN").asLong();
         String titre = jsonBD.get("titre").asText();
         String editeur = jsonBD.get("editeur").asText();
         Integer annee = jsonBD.get("annee").asInt();
